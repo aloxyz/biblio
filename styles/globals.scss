@@ -14,7 +14,8 @@
     h3 {
         @apply text-lg;
     }
+}
 
-
-
+.btn {
+    @apply transition duration-150 p-2 rounded-md bg-emerald-800 text-white hover:brightness-125
 }
