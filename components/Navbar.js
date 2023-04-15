@@ -1,4 +1,4 @@
-import { BookmarkSlashIcon, BookOpenIcon, Cog6ToothIcon, UserCircleIcon, XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline'
+import { BookmarkSlashIcon, BookOpenIcon, Cog6ToothIcon, UserCircleIcon, XMarkIcon, Bars3Icon, HeartIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { useState } from 'react';
 

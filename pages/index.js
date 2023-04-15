@@ -12,7 +12,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <body>
+            <body className='bg-gray-100 h-screen'>
                 <Navbar/>
 
                 <main>
