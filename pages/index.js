@@ -11,16 +11,6 @@ export default function Home() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
-            <body className='bg-gray-100 h-screen'>
-                <Navbar/>
-
-                <main>
-                    <Button>ciao</Button>
-                    
-                </main>    
-            </body>
-
         </>
     )
 }
