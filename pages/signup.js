@@ -1,12 +1,34 @@
 import Link from "next/link"
+import Logo from "../components/Logo"
 
 export default function signup() {
     return (
-        <form action="" className="flex flex-grow flex-col gap-3 text-center">
+        <form action='/api/user' method="post" className="flex flex-grow flex-col gap-8 text-center">
+            <Logo className="self-center"/>
             <h1>Create an account</h1>
-            <input type="text" name="username" id="username" placeholder="Username"/>
-            <input type="password" name="password" id="password" placeholder="Password"/>
-            <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm password"/>
+
+            <input 
+            required
+            type="email" 
+            name="email" 
+            id="email" 
+            placeholder="john.doe@email.com"/>
+            
+            <input
+            required
+            type="password" 
+            name="password" 
+            id="password" 
+            placeholder="Password" 
+            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" 
+            title="Password must have a minimum of eight characters, at least one letter, one number and one special character"/>
+            
+            <input
+            required
+            type="password" 
+            name="confirm-password" 
+            id="confirm-password" 
+            placeholder="Confirm password"/>
 
             
             <div className="space-x-2 self-start">

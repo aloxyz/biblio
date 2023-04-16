@@ -29,7 +29,7 @@
     text-white hover:brightness-125
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="email"] {
     @apply
     transition 
     duration-150 
