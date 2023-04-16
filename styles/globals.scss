@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        @apply text-gray-700 accent-emerald-800;
+    }
+
     h1 {
         @apply text-2xl;
     }
@@ -17,5 +21,22 @@
 }
 
 .btn {
-    @apply transition duration-150 p-2 rounded-md bg-emerald-800 text-white hover:brightness-125
+    @apply 
+
+    p-2 
+    rounded-md 
+    bg-emerald-800 
+    text-white hover:brightness-125
+}
+
+input[type="text"], input[type="password"] {
+    @apply
+    transition 
+    duration-150 
+    p-2 
+    rounded-md 
+    border-2
+    bg-gray-100
+    outline-none
+    focus:border-emerald-800 
 }
