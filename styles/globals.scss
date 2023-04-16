@@ -42,5 +42,5 @@ input[type="text"], input[type="password"] {
 }
 
 a:not(nav a) {
-    @apply text-emerald-800 hover:brightness-150 transition duration-200
+    @apply text-emerald-800 hover:underline
 }

@@ -9,7 +9,7 @@ export default function signup() {
             <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm password"/>
 
             
-            <div className="space-x-4 self-start">
+            <div className="space-x-2 self-start">
                 <input name="terms" type="checkbox"/>
                 <label htmlFor="terms">I accept the terms and conditions</label>
             </div>

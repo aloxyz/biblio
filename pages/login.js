@@ -7,7 +7,7 @@ export default function login() {
             <input type="text" name="username" id="username" placeholder="Username"/>
             <input type="password" name="password" id="password" placeholder="Password"/>
             
-            <div className="space-x-4 self-start">
+            <div className="space-x-2 self-start">
                 <input name="terms" type="checkbox"/>
                 <label htmlFor="remember">Remember me</label>
             </div>
