@@ -1,4 +1,4 @@
-import { BookmarkSlashIcon, BookOpenIcon, Cog6ToothIcon, UserCircleIcon, XMarkIcon, Bars3Icon, HeartIcon } from '@heroicons/react/24/outline'
+import { BookmarkSlashIcon, BookOpenIcon, Cog6ToothIcon, UserCircleIcon, XMarkIcon, Bars3Icon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { useState } from 'react';
 
@@ -43,6 +43,13 @@ export default function Navbar() {
                         <Link href='/settings'>
                             <Cog6ToothIcon className='w-5 pb-1 inline' />
                             Settings
+                        </Link>
+                    </li>
+
+                    <li className='hover:underline'>
+                        <Link href='api/settings'>
+                            <ArrowLeftOnRectangleIcon className='w-5 pb-1 inline' />
+                            Log out
                         </Link>
                     </li>
                 </ul>
