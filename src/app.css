@@ -1,59 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-    html {
-        @apply text-gray-700 accent-emerald-800;
+@media (min-width: 576px) {
+    body > div#pico-root > header,
+    body > div#pico-root > main,
+    body > div#pico-root > footer,
+    section {
+      --block-spacing-vertical: calc(var(--spacing) * 2.5);
     }
-
-    h1 {
-        @apply text-2xl;
+  }
+  @media (min-width: 768px) {
+    body > div#pico-root > header,
+    body > div#pico-root > main,
+    body > div#pico-root > footer,
+    section {
+      --block-spacing-vertical: calc(var(--spacing) * 3);
     }
-
-    h2 {
-        @apply text-xl;
+  }
+  @media (min-width: 992px) {
+    body > div#pico-root > header,
+    body > div#pico-root > main,
+    body > div#pico-root > footer,
+    section {
+      --block-spacing-vertical: calc(var(--spacing) * 3.5);
     }
-
-    h3 {
-        @apply text-lg;
+  }
+  @media (min-width: 1200px) {
+    body > div#pico-root > header,
+    body > div#pico-root > main,
+    body > div#pico-root > footer,
+    section {
+      --block-spacing-vertical: calc(var(--spacing) * 4);
     }
-}
-
-
-.btn {
-    @apply 
-    p-2 
-    rounded-md 
-    bg-emerald-800 
-    text-white 
-    hover:brightness-125
-}
-
-.btn-disabled {
-    @apply 
-    p-2 
-    rounded-md 
-    bg-gray-200 
-    text-gray-500
-    hover:cursor-not-allowed
-}
-
-input[type="text"], input[type="password"], input[type="email"] {
-    @apply
-    transition 
-    duration-150 
-    p-2 
-    rounded-md 
-    border-2
-    bg-gray-100
-    outline-none
-    focus:border-emerald-800 
-}
-
-
-
-
-a:not(nav a) {
-    @apply text-emerald-800 hover:underline
-}
+  }
