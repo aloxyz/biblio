@@ -4,7 +4,7 @@
     </ul>
     <ul>
         <li><a href="#" class="secondary">My readlist</a></li>
-        <li><a href="#" class="secondary">Books</a></li>
+        <li><a href="books" class="secondary">Books</a></li>
         <li><a href="#" class="secondary">Logout</a></li>
     </ul>
 </nav>
