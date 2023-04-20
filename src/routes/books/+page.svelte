@@ -1,7 +1,10 @@
 <script>
     import Spinner from "../../lib/components/Spinner.svelte";
 
-    async function fetchBooks(url) {
+    async function fetchBooks(queryString) {
+        var url = new URL("https://openlibrary.org/search.json");
+        url.searchParams.append("q", queryString);
+
         const res = await fetch(url);
         const data = await res.json();
 
@@ -12,17 +15,36 @@
         }
     }
 
-    const url = "https://openlibrary.org/search.json?q=the+lord+of+the+rings";
+    let promise;
+    let inputQueryString;
 
-    let promise = fetchBooks(url);
+    function fetchHandler(url) {
+        promise = fetchBooks(url);
+        console.log(data);
+    }
 </script>
 
+<section>
+    <input
+        type="search"
+        name="search"
+        id="search"
+        placeholder="Lord of the rings"
+        bind:value={inputQueryString}
+    />
+    <button on:click={() => fetchHandler(inputQueryString)}>Search</button>
+</section>
 
-{#await promise}
-    <Spinner/>
-{:then data}
-    <p>{JSON.stringify(data)}</p>
-{/await}
+{#if promise != undefined}
+    {#await promise}
+        <Spinner />
+    {:then data}
+        <p>Found {data.numFound} books</p>
 
-
-
+        {#each data.docs as book}
+            {#if book.title != "Undefined" && book.title != "undefined"}
+                <p>{book.title}</p>
+            {/if}
+        {/each}
+    {/await}
+{/if}
