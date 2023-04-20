@@ -1,0 +1,1 @@
+<p class="p-2 text-4xl shadow-sm text-white bg-gradient-to-b from-emerald-700 to-emerald-800 rounded-xl w-min">Biblio</p>
