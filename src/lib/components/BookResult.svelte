@@ -6,10 +6,11 @@
 </script>
 
 <div class='book-result'>
-    <hgroup>
+    <div class="heading">
         <p><strong>{title.length > 42 ? title.substring(0,42).concat('...') : title}</strong></p>
-        <p>{author ? author : 'Unknown author'}</p>
-    </hgroup>
+        <p>{author.length > 42 ? author.substring(0,42).concat('...') : author}</p>
+    </div>
+
 
     <img src={cover === undefined ? "/src/lib/images/noimage.png" : "https://covers.openlibrary.org/b/id/"+cover+"-M.jpg"} alt="">
 
@@ -22,6 +23,7 @@
         object-fit: cover;
         height: 14rem;
         padding: .8rem;
+        border-radius: 1.5rem;
     }
 
     .book-result {
@@ -31,15 +33,19 @@
         justify-content: space-between;
         gap: 2rem;
         
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        border: 1px solid lightgrey;
         height: 28rem;
-    
     }
 
-    hgroup {
+    .book-result:hover {
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        transition-duration: .2s;
+    }
+
+    .heading {
         height: 3rem;
         margin-bottom: 0;
-        padding: .5rem;
+        padding: 1rem;
     }
 
 

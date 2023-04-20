@@ -1,16 +1,20 @@
 <script>
     import BookResult from "../../lib/components/BookResult.svelte";
     async function fetchBooks(queryString) {
-        var url = new URL("https://openlibrary.org/search.json");
-        url.searchParams.append("q", queryString);
+        try {
+            var url = new URL("https://openlibrary.org/search.json");
+            url.searchParams.append("q", queryString);
 
-        const res = await fetch(url);
-        const data = await res.json();
+            const res = await fetch(url);
+            const data = await res.json();
 
-        if (res.ok) {
-            return data;
-        } else {
-            throw new Error(data);
+            if (res.ok) {
+                return data;
+            } else {
+                throw new Error(data);
+            }
+        } catch (e) {
+            console.log("error while fetching books: "+e)
         }
     }
 
@@ -19,7 +23,6 @@
 
     function fetchHandler(url) {
         promise = fetchBooks(url);
-        console.log(data);
     }
 </script>
 
@@ -31,26 +34,29 @@
         placeholder="Search..."
         bind:value={inputQueryString}
     />
-    <button on:click={() => fetchHandler(inputQueryString)}>Search</button>
+    <button
+        disabled={inputQueryString ? false : true}
+        on:click={() => fetchHandler(inputQueryString)}>Search</button
+    >
 </section>
 
 {#if promise != undefined}
     {#await promise}
-        <progress></progress>
+        <progress />
     {:then data}
-        <p>Found {data.numFound} books</p>
+        <p>Found <strong>{data.numFound}</strong> books</p>
 
-        <section id='result-page'>
-            {#each data.docs as book}
-                {#if book.title != "Undefined" && book.title != "undefined" && book.author_name != "Undefined" && book.author_name != "undefined"}
+        <section id="result-page">
+            {#each data.docs.filter((book) => book.title != "Undefined" && book.title != "undefined" && book.title != undefined) as book}
                 <section>
-                    <BookResult title={book.title} author={book.author} cover={book.cover_i}/>
-
-                </section>    
-                {/if}
+                    <BookResult
+                        title={book.title}
+                        author={book.author_name}
+                        cover={book.cover_i}
+                    />
+                </section>
             {/each}
         </section>
-
     {/await}
 {/if}
 
@@ -58,6 +64,7 @@
     #result-page {
         display: grid;
         grid-template-columns: repeat(auto-fill, 14rem);
+        align-items: center;
         gap: 1.5rem;
     }
 </style>
