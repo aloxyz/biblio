@@ -4,13 +4,15 @@
     async function fetchBooks(queryString) {
             var url = new URL("https://openlibrary.org/search.json");
             url.searchParams.append("q", queryString);
-            url.searchParams.append("sort", 'new');
+            //url.searchParams.append("sort", 'new');
 
             const res = await fetch(url);
 
             if (res.ok) {
                 const data = await res.json();
-                let filteredData = data.docs.slice(0,50).filter((book) => book.title != "Undefined" && book.title != "undefined" && book.title != undefined); //&& book.cover_i != undefined
+                let filteredData = data.docs.slice(0,50)
+                    .filter((book) => book.title != "Undefined" && book.title != "undefined" && book.title != undefined); //&& book.cover_i != undefined
+                
                 return filteredData;
             }
     }
@@ -50,6 +52,7 @@
                         title={book.title}
                         author={book.author_name}
                         cover={book.cover_i}
+                        id={book.key}
                     />
                 </section>
             {/each}
@@ -62,6 +65,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, 14rem);
         align-items: center;
+        justify-content: center;
         gap: 1.5rem;
     }
 </style>

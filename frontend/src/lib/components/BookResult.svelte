@@ -2,6 +2,25 @@
     export let title;
     export let author;
     export let cover;
+    export let id;
+
+    var userBooks = []
+
+    let added = userBooks.includes(id);
+
+    function addBookHandler() {
+
+        if(added) {
+            userBooks.splice(userBooks.indexOf(id), 1)
+        } else {
+            userBooks.push(id)
+        }
+
+        added = userBooks.includes(id)
+
+        console.log(userBooks)
+        console.log(userBooks.includes(id))
+    }
 
 </script>
 
@@ -14,7 +33,7 @@
 
     <img src={cover === undefined ? "/src/lib/images/noimage.png" : "https://covers.openlibrary.org/b/id/"+cover+"-M.jpg"} alt="">
 
-    <button class='secondary outline' style="width: fit-content; align-self: center;">Add to readlist</button>
+    <button on:click={addBookHandler}  class={added ? 'secondary' : 'secondary outline'} style="width: fit-content; align-self: center;">{added ? "Remove from readlist" : "Add to readlist"}</button>
 </div>
 
 <style>

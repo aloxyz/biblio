@@ -45,5 +45,3 @@
         </label>
     </fieldset>
 </form>
-
-<p>{JSON.stringify(user)}</p>
