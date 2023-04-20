@@ -1,6 +1,5 @@
 <script>
-    import Spinner from "../../lib/components/Spinner.svelte";
-
+    import BookResult from "../../lib/components/BookResult.svelte";
     async function fetchBooks(queryString) {
         var url = new URL("https://openlibrary.org/search.json");
         url.searchParams.append("q", queryString);
@@ -29,7 +28,7 @@
         type="search"
         name="search"
         id="search"
-        placeholder="Lord of the rings"
+        placeholder="Search..."
         bind:value={inputQueryString}
     />
     <button on:click={() => fetchHandler(inputQueryString)}>Search</button>
@@ -37,14 +36,28 @@
 
 {#if promise != undefined}
     {#await promise}
-        <Spinner />
+        <progress></progress>
     {:then data}
         <p>Found {data.numFound} books</p>
 
-        {#each data.docs as book}
-            {#if book.title != "Undefined" && book.title != "undefined"}
-                <p>{book.title}</p>
-            {/if}
-        {/each}
+        <section id='result-page'>
+            {#each data.docs as book}
+                {#if book.title != "Undefined" && book.title != "undefined" && book.author_name != "Undefined" && book.author_name != "undefined"}
+                <section>
+                    <BookResult title={book.title} author={book.author} cover={book.cover_i}/>
+
+                </section>    
+                {/if}
+            {/each}
+        </section>
+
     {/await}
 {/if}
+
+<style>
+    #result-page {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 14rem);
+        gap: 1.5rem;
+    }
+</style>
