@@ -1,21 +1,18 @@
 <script>
     import BookResult from "../../lib/components/BookResult.svelte";
+    
     async function fetchBooks(queryString) {
-        try {
             var url = new URL("https://openlibrary.org/search.json");
             url.searchParams.append("q", queryString);
+            url.searchParams.append("sort", 'new');
 
             const res = await fetch(url);
-            const data = await res.json();
 
             if (res.ok) {
-                return data;
-            } else {
-                throw new Error(data);
+                const data = await res.json();
+                let filteredData = data.docs.slice(0,50).filter((book) => book.title != "Undefined" && book.title != "undefined" && book.title != undefined); //&& book.cover_i != undefined
+                return filteredData;
             }
-        } catch (e) {
-            console.log("error while fetching books: "+e)
-        }
     }
 
     let promise;
@@ -43,11 +40,11 @@
 {#if promise != undefined}
     {#await promise}
         <progress />
-    {:then data}
-        <p>Found <strong>{data.numFound}</strong> books</p>
+    {:then books}
+        <p>Found <strong>{books.length}</strong></p>
 
         <section id="result-page">
-            {#each data.docs.filter((book) => book.title != "Undefined" && book.title != "undefined" && book.title != undefined) as book}
+            {#each books as book}
                 <section>
                     <BookResult
                         title={book.title}
