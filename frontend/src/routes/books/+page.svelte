@@ -22,6 +22,7 @@
 
     function fetchHandler(url) {
         promise = fetchBooks(url);
+        inputQueryString = '';
     }
 </script>
 
@@ -32,6 +33,7 @@
         id="search"
         placeholder="Search..."
         bind:value={inputQueryString}
+        on:keydown={e => e.keyCode === 13 ? fetchHandler(inputQueryString) : null}
     />
     <button
         disabled={inputQueryString ? false : true}
@@ -48,12 +50,7 @@
         <section id="result-page">
             {#each books as book}
                 <section>
-                    <BookResult
-                        title={book.title}
-                        author={book.author_name}
-                        cover={book.cover_i}
-                        id={book.key}
-                    />
+                    <BookResult book={book}/>
                 </section>
             {/each}
         </section>

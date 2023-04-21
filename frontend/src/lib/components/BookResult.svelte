@@ -1,37 +1,34 @@
 <script>
-    export let title;
-    export let author;
-    export let cover;
-    export let id;
+    export var book;
 
     var userBooks = []
 
-    let added = userBooks.includes(id);
+    let added = userBooks.includes(book.key);
 
     function addBookHandler() {
 
         if(added) {
-            userBooks.splice(userBooks.indexOf(id), 1)
+            userBooks.splice(userBooks.indexOf(book.key), 1)
         } else {
-            userBooks.push(id)
+            userBooks.push(book.key)
         }
 
-        added = userBooks.includes(id)
+        added = userBooks.includes(book.key)
 
         console.log(userBooks)
-        console.log(userBooks.includes(id))
+        console.log(userBooks.includes(book.key))
     }
 
 </script>
 
 <div class='book-result'>
     <div class="heading">
-        <p><strong>{title.length > 42 ? title.substring(0,42).concat('...') : title}</strong></p>
-        <p>{author.length > 42 ? author.substring(0,42).concat('...') : author}</p>
+        <p><strong>{book.title.length > 42 ? book.title.substring(0,42).concat('...') : book.title}</strong></p>
+        <p>{book.author_name.length > 42 ? book.author_name.substring(0,42).concat('...') : book.author_name}</p>
     </div>
 
 
-    <img src={cover === undefined ? "/src/lib/images/noimage.png" : "https://covers.openlibrary.org/b/id/"+cover+"-M.jpg"} alt="">
+    <img src={book.cover_i === undefined ? "/src/lib/images/noimage.png" : "https://covers.openlibrary.org/b/id/"+book.cover_i+"-M.jpg"} alt="">
 
     <button on:click={addBookHandler}  class={added ? 'secondary' : 'secondary outline'} style="width: fit-content; align-self: center;">{added ? "Remove from readlist" : "Add to readlist"}</button>
 </div>
