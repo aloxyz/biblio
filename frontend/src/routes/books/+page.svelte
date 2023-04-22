@@ -36,9 +36,10 @@
     }
 
     let inputQueryString, promise;
+    let queriesNumber = 30;
 
     function fetchHandler() {
-        promise = fetchBooks(inputQueryString, 50);
+        promise = fetchBooks(inputQueryString, queriesNumber);
         inputQueryString = undefined;
     }
 </script>
@@ -56,6 +57,7 @@
         disabled={inputQueryString ? false : true}
         on:click={() => fetchHandler(inputQueryString)}>Search</button
     >
+    <input bind:value={queriesNumber} type="number" name="queries" id="queries" step="10" min='10' max='100' placeholder="Number or queries">
 </section>
 
 <section>
