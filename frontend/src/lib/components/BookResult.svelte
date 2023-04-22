@@ -1,6 +1,8 @@
 <script>
     export var book;
 
+    // initially author_name is an array. we are joining all of them in a string
+
     var userBooks = []
 
     let added = userBooks.includes(book.key);
@@ -18,13 +20,12 @@
         console.log(userBooks)
         console.log(userBooks.includes(book.key))
     }
-
 </script>
 
 <div class='book-result'>
     <div class="heading">
         <p><strong>{book.title.length > 42 ? book.title.substring(0,42).concat('...') : book.title}</strong></p>
-        <p>{book.author_name.length > 42 ? book.author_name.substring(0,42).concat('...') : book.author_name}</p>
+        <p>{book.author_name}</p>
     </div>
 
 
