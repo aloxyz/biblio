@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_DATABASE: 'biblio'
+      MARIADB_ROOT_PASSWORD: 'biblio'
+      MARIADB_USER: 'biblio'
+      MARIADB_PASSWORD: 'biblio'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - biblio
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    expose:
+      - '8080'
+    networks:
+      - biblio
+
+  php:
+    image: php:apache
+    ports:
+      - '8000:80'
+      - '443:443'
+    volumes:
+      - ./backend:/var/www/html:Z
+    depends_on:
+      - mariadb
+    networks:
+      - biblio
+
+volumes:
+  mariadb_data:
+    external: true
+
+networks:
+  biblio:
+
