@@ -1,11 +1,11 @@
 <?php
-class User {
+class UserProfile {
     private $conn;
-    private $table_name = "users";
+    private $table_name = "user_profiles";
 
-    public $id;
-    public $email;
-    public $password;
+    public $user_id;
+    public $readlist_id;
+    public $name;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -21,7 +21,7 @@ class User {
     }
 
     public function create() {
-        $query = "INSERT INTO $this->table_name (email, password) VALUES (\"$this->email\", \"$this->password\")";
+        $query = "INSERT INTO $this->table_name (user_id, readlist_id, name) VALUES (\"$this->user_id\", \"$this->readlist_id\", \"$this->name\")";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

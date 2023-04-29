@@ -7,25 +7,26 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
  
 include_once '../database.php';
-include_once '../models/user.php';
+include_once '../models/user_profile.php';
  
 $database = new Database();
 $db = $database->getConnection();
-$user = new User($db);
+$user_profile = new UserProfile($db);
 $data = json_decode(file_get_contents("php://input"));
 
-if (!empty($data->email) && !empty($data->password)) {
-    $user->email = $data->email;
-    $user->password = $data->password;
- 
+if (!empty($data->user_id) && !empty($data->readlist_id) && !empty($data->name)) {
+    $user_profile->user_id = $data->user_id;
+    $user_profile->readlist_id = $data->readlist_id;
+    $user_profile->name = $data->name;
+
     
-    if ($user->create()) {
+    if ($user_profile->create()) {
         http_response_code(201);
-        echo json_encode(array("message" => "User $user->email created."));
+        echo json_encode(array("message" => "User profile $user_profile->user_id created."));
     }
     else {
         http_response_code(503);
-        echo json_encode(array("message" => "Couldn't create user."));
+        echo json_encode(array("message" => "Couldn't create user profile."));
     }
 }
 else {
