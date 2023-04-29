@@ -16,7 +16,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
-      - biblio
+      - network
 
   adminer:
     image: adminer
@@ -26,10 +26,10 @@ services:
     expose:
       - '8080'
     networks:
-      - biblio
+      - network
 
   php:
-    image: php:apache
+    build: .
     ports:
       - '8000:80'
       - '443:443'
@@ -38,12 +38,12 @@ services:
     depends_on:
       - mariadb
     networks:
-      - biblio
+      - network
 
 volumes:
   mariadb_data:
     external: true
 
 networks:
-  biblio:
+  network:
 
