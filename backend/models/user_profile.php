@@ -28,6 +28,15 @@ class UserProfile {
 
         return $stmt;
     }
+
+    public function update() {
+        $query = "UPDATE $this->table_name SET readlist_id = \"$this->readlist_id\", name = \"$this->name\" WHERE user_id = \"$this->user_id\"";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
 }
 
 ?>
