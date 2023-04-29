@@ -12,7 +12,17 @@ class User {
     }
 
     public function read() {
-        $query = "SELECT * FROM ".$this->table_name;
+        $query = "SELECT * FROM $this->table_name";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function create($email, $password) {
+        $query = "INSERT INTO $this->table_name (email, password) VALUES (\"$email\", \"$password\")";
+
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
