@@ -19,6 +19,8 @@ $data = json_decode(file_get_contents("php://input"));
 $user->id = $_GET["id"];
 $user->email = $data->email;
 $user->password = $data->password;
+$user->name = $data->name;
+
  
 if($user->update()){
     http_response_code(200);

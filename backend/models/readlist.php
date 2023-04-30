@@ -1,28 +1,17 @@
 <?php
 class User {
     private $conn;
-    private $table_name = "users";
+    private $table_name = "readlists";
 
     public $id;
-    public $email;
-    public $password;
-    public $name;
+    public $book_olid;
 
     public function __construct($db) {
         $this->conn = $db;
     }
 
     public function create() {
-        $query = "INSERT INTO $this->table_name (email, password, name) VALUES (\"$this->email\", \"$this->password\", \"$this->email\")";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-
-        return $stmt;
-    }
-
-    public function read_all() {
-        $query = "SELECT * FROM $this->table_name";
+        $query = "INSERT INTO $this->table_name (book_olid) VALUES (\"$this->book_olid\"";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -31,7 +20,7 @@ class User {
     }
 
     public function read() {
-        $query = "SELECT * FROM $this->table_name WHERE id = \"$this->id\"";
+        $query = "SELECT * FROM $this->table_name";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -40,14 +29,13 @@ class User {
     }
 
     public function update() {
-        $query = "UPDATE $this->table_name SET email = \"$this->email\", password = \"$this->password\", name = \"$this->name\" WHERE id = \"$this->id\"";
+        $query = "UPDATE $this->table_name SET book_olid = \"$this->book_olid\" WHERE id = \"$this->id\"";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
         return $stmt;
     }
-
 
     public function delete() {
         $query = "DELETE FROM $this->table_name WHERE id = \"$this->id\"";

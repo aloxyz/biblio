@@ -20,7 +20,8 @@ if($stmt->rowCount() > 0) {
         $record = array(
             "id" => $id,
             "email" => $email,
-            "password" => $password
+            "password" => $password,
+            "name" => $name
         );
         array_push($arr, $record);
     }
