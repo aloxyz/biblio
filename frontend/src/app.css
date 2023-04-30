@@ -30,3 +30,11 @@
       --block-spacing-vertical: calc(var(--spacing) * 4);
     }
   }
+
+  #result-page {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 14rem);
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}

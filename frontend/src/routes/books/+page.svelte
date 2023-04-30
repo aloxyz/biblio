@@ -4,7 +4,7 @@
 
     async function fetchBooks(queryString, n) {
         // Create URL object and append
-        var url = new URL("http://localhost:8000/fetch.php");
+        var url = new URL("http://localhost:8000/search.php");
         url.searchParams.append("query", queryString);
 
         // Fetch response
