@@ -19,7 +19,7 @@ if($stmt->rowCount() > 0) {
         extract($row);
         $record = array(
             "user_id" => $user_id,
-            "book_olid1" => $book_olid
+            "book_olid" => $book_olid
         );
         array_push($arr, $record);
     }

@@ -13,14 +13,24 @@ $readlist->user_id = $_GET["user_id"];
 
 $stmt = $readlist->read();
 
-if ($stmt->rowCount() > 0) {
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+if($stmt->rowCount() > 0) {
+    $arr = array();
     
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+        $record = array(
+            "user_id" => $user_id,
+            "book_olid" => $book_olid
+        );
+        array_push($arr, $record);
+    }
+
     http_response_code(200);
-    echo json_encode($row);
+    echo json_encode($arr);
+
     }
 
 else {
-    echo json_encode(array("message" => "No book found for user $readlist->user_id."));
+    echo json_encode(array("message" => "No records found."));
     http_response_code(404);
 }
