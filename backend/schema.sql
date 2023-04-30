@@ -12,7 +12,7 @@ SET NAMES utf8mb4;
 CREATE TABLE `readlists` (
   `user_id` int(10) unsigned NOT NULL,
   `book_olid` varchar(128) NOT NULL,
-  PRIMARY KEY (`user_id`),
+  PRIMARY KEY (`user_id`,`book_olid`),
   CONSTRAINT `readlists_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -25,5 +25,4 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
--- 2023-04-30 12:14:50
+-- 2023-04-30 12:21:00
