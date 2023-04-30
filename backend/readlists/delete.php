@@ -19,7 +19,7 @@ $readlist->book_olid = $_GET["book_olid"];
  
 if ($readlist->delete()) {
     http_response_code(200);
-    echo json_encode(array("message" => "Book $user->id has been deleted from readlist."));
+    echo json_encode(array("message" => "Book $readlist->book_olid has been deleted from readlist."));
 } else {
     http_response_code(503);
     echo json_encode(array("message" => "Could not delete book."));

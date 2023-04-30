@@ -21,6 +21,6 @@ if ($stmt->rowCount() > 0) {
     }
 
 else {
-    echo json_encode(array("message" => "No book found for user $user->id."));
+    echo json_encode(array("message" => "No book found for user $readlist->user_id."));
     http_response_code(404);
 }

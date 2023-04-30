@@ -17,6 +17,7 @@ $data = json_decode(file_get_contents("php://input"));
 if (!empty($data->email) && !empty($data->password)) {
     $user->email = $data->email;
     $user->password = $data->password;
+    $user->name = $data->name;
  
     
     if ($user->create()) {
