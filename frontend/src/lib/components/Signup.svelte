@@ -1,25 +1,26 @@
 <script>
-    let user = {
-        email: "",
-        password: "",
-        cpassword: "",
-    };
+    let hashedPassword = "";
 
-    let disabled = true;
+    let terms = false;
+    let email = "";
+    let password = "";
+    let cpassword = "";
 
-    function checkDisabled() {
-        if (user.email && user.password && user.cpassword) {
-            disabled = false;
-        } else {
-            disabled = true;
-        }
-    }
+    $: checkMatchingPasswords = password === cpassword;
+    
+    $: disabled = !(
+        email
+        && password 
+        && cpassword 
+        && checkMatchingPasswords
+        && terms);
+
 </script>
 
 <h1>Create an account</h1>
-<form action="/api/user" method="post">
+<form action="https://localhost:8000/users/create.php" method="POST">
     <input
-        bind:value={user.email}
+        bind:value={email}
         required
         type="email"
         name="email"
@@ -28,7 +29,7 @@
     />
 
     <input
-        bind:value={user.password}
+        bind:value={password}
         required
         type="password"
         name="password"
@@ -39,7 +40,8 @@
     />
 
     <input
-        bind:value={user.cpassword}
+        aria-invalid={!checkMatchingPasswords ? true : null}
+        bind:value={cpassword}
         required
         type="password"
         name="cpassword"
@@ -47,11 +49,18 @@
         placeholder="Confirm password"
     />
 
-    <button disabled={disabled || null} type="submit">Sign up</button>
+    <button disabled={disabled} type="submit">Sign up</button>
     <fieldset>
         <label for="terms">
-            <input type="checkbox" id="terms" name="terms" />
+            <input 
+            bind:value={terms}
+            type="checkbox" 
+            id="terms" 
+            name="terms" />
             I accept terms and conditions
         </label>
     </fieldset>
 </form>
+
+<style>
+</style>

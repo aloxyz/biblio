@@ -1,24 +1,16 @@
 <script>
-    let user = {
-        email: "",
-        password: "",
-    };
+    let email = "";
+    let password = "";
 
-    let disabled = true;
-
-    function checkDisabled() {
-        if (user.email && user.password && user.cpassword) {
-            disabled = false;
-        } else {
-            disabled = true;
-        }
-    }
+    $: disabled = !(
+        email
+        && password);
 </script>
 
 <h1>Welcome back</h1>
 <form>
     <input
-        bind:value={user.email}
+        bind:value={email}
         required
         type="email"
         name="email"
@@ -27,7 +19,7 @@
     />
 
     <input
-        bind:value={user.password}
+        bind:value={password}
         required
         type="password"
         name="password"
@@ -37,7 +29,7 @@
         title="Password must have a minimum of eight characters, at least one letter, one number and one special character"
     />
 
-    <button disabled={disabled || null} type="submit">Sign up</button>
+    <button disabled={disabled} type="submit">Sign up</button>
     <fieldset>
         <label for="terms">
             <input type="checkbox" id="terms" name="terms" />
