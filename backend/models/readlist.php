@@ -1,5 +1,5 @@
 <?php
-class User {
+class Readlist {
     private $conn;
     private $table_name = "readlists";
 
