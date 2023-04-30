@@ -9,29 +9,20 @@ $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
+$user->id = $_GET["id"];
 
 $stmt = $user->read();
 
-if($stmt->rowCount() > 0) {
-    $arr = array();
+if ($stmt->rowCount() > 0) {
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        extract($row);
-        $record = array(
-            "id" => $id,
-            "email" => $email,
-            "password" => $password
-        );
-        array_push($arr, $record);
-    }
-
     http_response_code(200);
-    echo json_encode($arr);
+    echo json_encode($row);
 
     }
 
 else {
-    echo json_encode(array("message" => "No records found."));
+    echo json_encode(array("message" => "No user found with id $user->id."));
     http_response_code(404);
 }
 ?>
