@@ -1,26 +1,11 @@
 <script>
     import { loop_guard } from "svelte/internal";
     import BookResult from "../../lib/components/BookResult.svelte";
-    // TUTTO IL LAVORO DI FILTRAGGIO CHE AVVIENE IN QUESTO FILE
-    // VERRÀ FATTO DAL BACKEND
-
-    function filterBooks(books, n) {
-        // Get N books, then return a filtered books array
-        return books.docs
-            .slice(0, n)
-            .filter(
-                (book) =>
-                    book.title !== "Undefined" ||
-                    book.title != undefined ||
-                    book.author_name != undefined
-            );
-    }
 
     async function fetchBooks(queryString, n) {
         // Create URL object and append
-        var url = new URL("https://openlibrary.org/search.json");
-        url.searchParams.append("q", queryString);
-        //url.searchParams.append("sort", 'new');
+        var url = new URL("http://localhost:8000/fetch.php");
+        url.searchParams.append("query", queryString);
 
         // Fetch response
         return fetch(url)
@@ -28,9 +13,8 @@
                 if (!res.ok) throw new Error(`Fetch error: ${res.status}`);
                 return res;
             })
-            .then((res) => res.json())
-            .then((data) => {
-                return filterBooks(data, n);
+            .then((res) => {
+                return res.json();
             })
             .catch((e) => console.error(e.message));
     }
