@@ -18,11 +18,10 @@ if ($stmt->rowCount() > 0) {
     
     http_response_code(200);
     echo json_encode($row);
-
     }
 
 else {
-    echo json_encode(array("message" => "No user found with id $user->id."));
     http_response_code(404);
+    echo json_encode(array("message" => "No user found with id $user->id."));
 }
 ?>
