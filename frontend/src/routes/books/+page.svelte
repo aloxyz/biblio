@@ -1,5 +1,7 @@
 <script>
     import BookResult from "../../lib/components/BookResult.svelte";
+    import { getSession } from "../../session";
+    import { onMount } from "svelte";
 
     async function fetchBooks(queryString, n) {
         // Create URL object and append
@@ -25,39 +27,56 @@
         promise = fetchBooks(inputQueryString, queriesNumber);
         inputQueryString = undefined;
     }
+
+    let loggedIn;
+    onMount(() => {
+        loggedIn = getSession().loggedIn;
+        if (!loggedIn) window.location.href = "/";
+    });
 </script>
 
-<section>
-    <input
-        type="search"
-        id="search"
-        placeholder="Search..."
-        bind:value={inputQueryString}
-        on:keydown={(e) =>
-            e.keyCode === 13 ? fetchHandler(inputQueryString) : null}
-    />
-    <button
-        disabled={inputQueryString ? false : true}
-        on:click={() => fetchHandler(inputQueryString)}>Search</button
-    >
-    <input bind:value={queriesNumber} type="number" name="queries" id="queries" step="10" min='10' max='100' placeholder="Number or queries">
-</section>
+{#if loggedIn}
+    <section>
+        <input
+            type="search"
+            id="search"
+            placeholder="Search..."
+            bind:value={inputQueryString}
+            on:keydown={(e) =>
+                e.keyCode === 13 ? fetchHandler(inputQueryString) : null}
+        />
+        <button
+            disabled={inputQueryString ? false : true}
+            on:click={() => fetchHandler(inputQueryString)}>Search</button
+        >
+        <input
+            bind:value={queriesNumber}
+            type="number"
+            name="queries"
+            id="queries"
+            step="10"
+            min="10"
+            max="100"
+            placeholder="Number or queries"
+        />
+    </section>
 
-<section>
-    {#if promise != undefined}
-        {#await promise}
-            <progress />
-        {:then books}
-            <p>Found <strong>{books.length}</strong></p>
+    <section>
+        {#if promise != undefined}
+            {#await promise}
+                <progress />
+            {:then books}
+                <p>Found <strong>{books.length}</strong></p>
 
-            <section id="result-page">
-                {#each books as book}
-                    <BookResult {book} />
-                {/each}
-            </section>
-        {/await}
-    {/if}
-</section>
+                <section id="result-page">
+                    {#each books as book}
+                        <BookResult {book} />
+                    {/each}
+                </section>
+            {/await}
+        {/if}
+    </section>
+{/if}
 
 <style>
     #result-page {

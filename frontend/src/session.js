@@ -16,6 +16,7 @@ export function loginSession(user) {
 
 export function logoutSession() {
     localStorage.clear();
+    location.reload();
 }
 
 export async function loginRequest(email, password) {

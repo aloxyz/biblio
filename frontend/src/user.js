@@ -23,7 +23,7 @@ export function getReadlist(user_id) {
         } 
         
         else if (res.status === 404) {
-            throw new Error("No records found");
+            throw new Error("No books in readlist");
         }
 
         else if (res.status === 500) {
