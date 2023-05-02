@@ -13,7 +13,7 @@ class User {
     }
 
     public function create() {
-        $query = "INSERT INTO $this->table_name (email, password, name) VALUES (\"$this->email\", \"$this->password\", \"$this->email\")";
+        $query = "INSERT INTO $this->table_name (email, password, name) VALUES (\"$this->email\", \"$this->password\", \"$this->name\")";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

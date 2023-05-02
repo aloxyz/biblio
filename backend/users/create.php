@@ -2,10 +2,20 @@
 //headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: content-type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
  
+// check if the request method is OPTIONS
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+    header('Access-Control-Allow-Headers: content-type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Max-Age: 86400');
+    exit;
+}
+
 include_once '../database.php';
 include_once '../models/user.php';
  
@@ -31,5 +41,9 @@ if (!empty($data->email) && !empty($data->password)) {
 }
 else {
     http_response_code(400);
-    echo json_encode(array("message" => "Malformed data."));
+    echo json_encode(
+        array(
+            "message" => "Malformed data",
+            "data" => $data
+        ));
 }
