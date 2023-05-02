@@ -1,7 +1,9 @@
 <script>
     import BookResult from "../../lib/components/BookResult.svelte";
     import { page } from '$app/stores';
-    
+    import { getSession } from "../../session";
+
+
     const user_id = $page.url.searchParams.get('id');
 
     function getUser(id) {

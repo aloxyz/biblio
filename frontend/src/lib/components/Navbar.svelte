@@ -1,5 +1,11 @@
 <script>
-    import { logoutSession } from "../../session";
+    import { onMount } from "svelte";
+import { getSession, logoutSession } from "../../session";
+
+    let user_id;
+    onMount(() => {
+        user_id = getSession().id;
+    })
 
 </script>
 <nav>
@@ -7,7 +13,7 @@
         <li><a href="/" class="secondary"><strong>Biblio</strong></a></li>
     </ul>
     <ul>
-        <li><a href="users" class="secondary">My readlist</a></li>
+        <li><a href="user?id={user_id}" class="secondary">My readlist</a></li>
         <li><a href="books" class="secondary">Books</a></li>
         <li><a on:click={logoutSession} href="/" class="secondary">Logout</a></li>
     </ul>

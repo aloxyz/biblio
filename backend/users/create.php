@@ -43,7 +43,6 @@ if (!empty($data->email) && !empty($data->password) && !empty($data->name)) {
         http_response_code(500);
         echo json_encode(array("message" => "Internal server error."));
     }
-    
 } else {
     http_response_code(400);
     echo json_encode(
