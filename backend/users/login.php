@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 //headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -18,38 +20,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 include_once '../database.php';
 include_once '../models/user.php';
- 
+
 $database = new Database();
 $db = $database->getConnection();
+
 $user = new User($db);
 $data = json_decode(file_get_contents("php://input"));
 
-if (!empty($data->email) && !empty($data->password) && !empty($data->name)) {
+if (!empty($data->email) && !empty($data->password)) {
     $user->email = $data->email;
-    $user->password = $data->password;
-    $user->name = $data->name;
+    $stmt = $user->get_by_email();
 
-    // Check if user email already exists
-    if ($user->get_by_email()->rowCount() > 0) {
-        http_response_code(409);
-        echo json_encode(array("message" => "User with email $user->email already exists."));
-    }
+    if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    else if ($user->create()) {
-        http_response_code(201);
-        echo json_encode(array("message" => "User $user->email created."));
+        if($row['password'] == $data->password) {
+            http_response_code(200);
+            echo json_encode(array(
+                "id" => "$row[id]",
+                "email" => "$row[email]",
+                "name" => "$row[name]"
+            ));
+        
+        } else {
+            http_response_code(401);
+            echo json_encode(array("message" => "Invalid password."));
+        }
     
     } else {
-        http_response_code(500);
-        echo json_encode(array("message" => "Internal server error."));
+        http_response_code(404);
+        echo json_encode(array("message" => "No user found with email $data->email."));
     }
-    
+
 } else {
     http_response_code(400);
-    echo json_encode(
-        array(
-            "message" => "Bad request.",
-            "data" => $data
-        )
-    );
+    echo json_encode(array("message" => "Invalid request. Email and password are required."));
 }

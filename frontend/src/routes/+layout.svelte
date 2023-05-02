@@ -3,6 +3,14 @@
     import '@picocss/pico'
 
     import "../app.css";
+    import { onMount } from 'svelte';
+    import { getSession } from '../session';
+
+    // onMount(() => {
+    //     user = getSession();
+    //     console.log(user);
+    // })
+
 </script>
 
 <Navbar></Navbar>

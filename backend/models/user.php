@@ -39,6 +39,16 @@ class User {
         return $stmt;
     }
 
+    public function get_by_email() {
+        $query = "SELECT * FROM $this->table_name WHERE email = \"$this->email\"";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+    
+
     public function update() {
         $query = "UPDATE $this->table_name SET email = \"$this->email\", password = \"$this->password\", name = \"$this->name\" WHERE id = \"$this->id\"";
 

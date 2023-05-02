@@ -2,6 +2,16 @@
     import Signup from "../../lib/components/Signup.svelte";
     import Login from "../../lib/components/Login.svelte";
 
+    import { getSession } from "../../session";
+
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        if(getSession().loggedIn) {
+            window.location.href='/books';
+        }
+    })
+
     let checked = false;
 </script>
 

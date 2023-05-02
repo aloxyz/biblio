@@ -1,11 +1,15 @@
+<script>
+    import { logoutSession } from "../../session";
+
+</script>
 <nav>
     <ul>
-        <li><a href="#" class="secondary"><strong>Biblio</strong></a></li>
+        <li><a href="/" class="secondary"><strong>Biblio</strong></a></li>
     </ul>
     <ul>
-        <li><a href="#" class="secondary">My readlist</a></li>
+        <li><a href="users" class="secondary">My readlist</a></li>
         <li><a href="books" class="secondary">Books</a></li>
-        <li><a href="#" class="secondary">Logout</a></li>
+        <li><a on:click={logoutSession} href="/" class="secondary">Logout</a></li>
     </ul>
 </nav>
 

@@ -1,4 +1,9 @@
 <script>
+    import {
+        loginSession,
+        loginRequest,
+        signupRequest,
+    } from "../../session.js";
     let hashedPassword = "";
 
     let terms = false;
@@ -9,7 +14,7 @@
 
     $: checkMatchingPasswords = password === cpassword;
 
-    $: disabled = !(
+    $: buttonDisabled = !(
         name &&
         email &&
         password &&
@@ -18,33 +23,37 @@
         terms
     );
 
-    function postData() {
-        return fetch("http://localhost:8000/users/create.php", {
-            method: "post",
-            mode: 'cors',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({name: name, email: email, password: password}),
-            
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .catch(e => console.error(e))
+    let errorMessage;
+    $: formMessage = errorMessage;
+
+    async function submitHandler() {
+        try {
+            await signupRequest(name, email, password);
+            await loginRequest(email, password);
+            window.location.href = "/books";
+        
+        } catch (e) {
+            errorMessage = e;
+        }
     }
 
 </script>
 
 <h1>Create an account</h1>
-<form on:submit={postData}>
+{#if formMessage}
+    <section>
+        <mark>{formMessage}</mark>
+
+    </section>
+{/if}
+<form on:submit={submitHandler}>
     <input
-    bind:value={name}
-    required
-    type="text"
-    name="name"
-    id="name"
-    placeholder="Nickname"
+        bind:value={name}
+        required
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Nickname"
     />
 
     <input
@@ -76,7 +85,7 @@
         placeholder="Confirm password"
     />
 
-    <button {disabled} type="submit">Sign up</button>
+    <button {buttonDisabled} type="submit">Sign up</button>
     <fieldset>
         <label for="terms">
             <input bind:value={terms} type="checkbox" id="terms" name="terms" />

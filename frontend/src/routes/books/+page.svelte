@@ -1,5 +1,4 @@
 <script>
-    import { loop_guard } from "svelte/internal";
     import BookResult from "../../lib/components/BookResult.svelte";
 
     async function fetchBooks(queryString, n) {
