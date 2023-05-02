@@ -1,5 +1,5 @@
 <script>
-    import BookResult from "../../lib/components/BookResult.svelte";
+    import Book from "../../lib/components/Book.svelte";
     import { getSession } from "../../session";
     import { onMount } from "svelte";
 
@@ -70,7 +70,7 @@
 
                 <section id="result-page">
                     {#each books as book}
-                        <BookResult {book} />
+                        <Book {book} />
                     {/each}
                 </section>
             {/await}

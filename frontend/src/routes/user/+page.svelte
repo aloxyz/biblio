@@ -1,5 +1,5 @@
 <script>
-    import BookResult from "../../lib/components/BookResult.svelte";
+    import Book from "../../lib/components/Book.svelte";
     import { page } from "$app/stores";
     import { getUser, getBook, getReadlist } from "../../user";
 
@@ -43,7 +43,7 @@
                             <progress />
                         {:then book}
                             {(book.author_name = "")}
-                            <BookResult {book} />
+                            <Book {book} />
                         {/await}
                     </section>
                 {/each}
