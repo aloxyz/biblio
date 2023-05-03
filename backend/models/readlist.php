@@ -37,8 +37,26 @@ class Readlist {
         return $stmt;
     }
 
+    public function read_by_book_olid() {
+        $query = "SELECT * FROM $this->table_name WHERE book_olid = '$this->book_olid'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function user_has_book() {
+        $query = "SELECT * FROM $this->table_name WHERE book_olid = '$this->book_olid' AND user_id = '$this->user_id'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     public function delete() {
-        $query = "DELETE FROM $this->table_name WHERE book_olid = \"$this->book_olid\"";
+        $query = "DELETE FROM $this->table_name WHERE book_olid = \"$this->book_olid\" AND user_id = \"$this->user_id\"";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

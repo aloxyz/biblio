@@ -28,14 +28,21 @@
         inputQueryString = undefined;
     }
 
-    let loggedIn;
-    onMount(() => {
+    let loggedIn, user_id;
+
+    const mount = onMount(() => {
         loggedIn = getSession().loggedIn;
         if (!loggedIn) window.location.href = "/";
-    });
+        user_id = getSession().id;
+
+    });    
+
 </script>
 
 {#if loggedIn}
+    {#await mount}
+        <progress></progress>
+    {:then x} 
     <section>
         <input
             type="search"
@@ -70,12 +77,14 @@
 
                 <section id="result-page">
                     {#each books as book}
-                        <Book {book} />
+                        <Book {book} {user_id}/>
                     {/each}
                 </section>
             {/await}
         {/if}
     </section>
+    {/await}
+    
 {/if}
 
 <style>

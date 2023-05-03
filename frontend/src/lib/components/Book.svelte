@@ -1,25 +1,28 @@
 <script>
+    import { addBook, removeBook, userHasBook } from "../../readlist";
+    
     export var book;
+    export var user_id;
+    
+    let key = book.key.slice(7, book.key.length);
+    let isAdded;
 
-    // initially author_name is an array. we are joining all of them in a string
 
-    var userBooks = []
-
-    let added = userBooks.includes(book.key);
+    userHasBook(user_id, key)
+    .then(res => isAdded = res);
 
     function addBookHandler() {
-
-        if(added) {
-            userBooks.splice(userBooks.indexOf(book.key), 1)
-        } else {
-            userBooks.push(book.key)
+        if (isAdded) {
+            addBook(user_id, key);
         }
-
-        added = userBooks.includes(book.key)
-
-        console.log(userBooks)
-        console.log(userBooks.includes(book.key))
+        else {
+            removeBook(user_id, key);
+        }
     }
+
+    
+
+
 </script>
 
 <div class='book-result'>
@@ -31,7 +34,7 @@
 
     <img src={book.cover_i === undefined ? "/src/lib/images/noimage.png" : "https://covers.openlibrary.org/b/id/"+book.cover_i+"-M.jpg"} alt="">
 
-    <button on:click={addBookHandler}  class={added ? 'secondary' : 'secondary outline'} style="width: fit-content; align-self: center;">{added ? "Remove from readlist" : "Add to readlist"}</button>
+    <button on:click={addBookHandler}  class={isAdded ? 'secondary' : 'secondary outline'} style="width: fit-content; align-self: center;">{isAdded ? "Remove from readlist" : "Add to readlist"}</button>
 </div>
 
 <style>

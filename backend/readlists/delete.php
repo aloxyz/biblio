@@ -15,13 +15,14 @@ $readlist = new Readlist($db);
  
 $data = json_decode(file_get_contents("php://input"));
  
-$readlist->book_olid = $_GET["book_olid"];
- 
+$readlist->book_olid = $data->book_olid;
+$readlist->user_id = $data->user_id;
+
 if ($readlist->delete()) {
     http_response_code(200);
-    echo json_encode(array("message" => "Book $readlist->book_olid has been deleted from readlist."));
+    echo json_encode(array("message" => "Book $readlist->book_olid has been deleted from readlist of user $readlist->user_id."));
 } else {
     http_response_code(503);
-    echo json_encode(array("message" => "Could not delete book."));
+    echo json_encode(array("message" => "Failed to delete book."));
 }
 ?>
