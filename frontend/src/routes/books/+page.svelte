@@ -54,7 +54,7 @@
         />
         <button
             disabled={inputQueryString ? false : true}
-            on:click={() => fetchHandler(inputQueryString)}>Search</button
+            on:click={fetchHandler(inputQueryString)}>Search</button
         >
         <input
             bind:value={queriesNumber}

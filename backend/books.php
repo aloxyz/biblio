@@ -12,6 +12,7 @@ if (!$data) {
 }
 
 $response = array(
+    'key' => $data->key,
     'title' => $data->title,
     'author_name' => $data->authors[0]->key,
     'cover_i' => $data->covers[0]

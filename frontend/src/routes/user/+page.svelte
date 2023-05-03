@@ -37,16 +37,17 @@
                     <h2>Readlist</h2>
                     <p>{readlist.length} books in readlist</p>
                 </hgroup>
+                <section id="result-page">
                 {#each readlist as record}
-                    <section id="result-page">
                         {#await getBook(record.book_olid)}
                             <progress />
                         {:then book}
                             {(book.author_name = "")}
-                            <Book {book} />
+                            <Book {book} {user_id}/>
                         {/await}
-                    </section>
                 {/each}
+                </section>
+
             </section>
         {:else}
             <mark>No books in readlist</mark>
@@ -55,3 +56,4 @@
 {:else}
     <progress />
 {/if}
+

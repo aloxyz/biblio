@@ -1,6 +1,5 @@
 <script>
     import {
-        loginSession,
         loginRequest,
         signupRequest,
     } from "../../session.js";
@@ -27,14 +26,10 @@
     $: formMessage = errorMessage;
 
     async function submitHandler() {
-        try {
-            await signupRequest(name, email, password);
-            await loginRequest(email, password);
-            window.location.href = "/books";
-        
-        } catch (e) {
-            errorMessage = e;
-        }
+        await signupRequest(name, email, password)
+        .then(loginRequest(email, password))
+        .then(window.location.href = "/books")
+        .catch(e => errorMessage = e)
     }
 
 </script>
