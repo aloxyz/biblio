@@ -19,8 +19,8 @@ export function logoutSession() {
     location.reload();
 }
 
-export async function loginRequest(email, password) {
-    return await fetch("http://localhost:8000/users/login.php", {
+export function loginRequest(email, password) {
+    return fetch("http://localhost:8000/users/login.php", {
         method: "post",
         mode: 'cors',
         headers: { "Content-Type": "application/json" },
@@ -32,17 +32,17 @@ export async function loginRequest(email, password) {
                 return res.json();
             }
 
-            else if (res.status === 401) {
+            else if (res.status === 401 || res.status === 404 || res.status === 400) {
                 throw new Error('Invalid email or password');
             }
 
-            else if (res.status === 404) {
-                throw new Error('No user found with this email');
-            }
-            
-            else if (res.status === 400) {
-                throw new Error('No email or password provided');
-            }
+            // else if (res.status === 404) {
+            //     throw new Error('No user found with this email');
+            // }
+
+            // else if (res.status === 400) {
+            //     throw new Error('No email or password provided');
+            // }
 
             else {
                 throw new Error(`Unexpected status code: ${res.status}`);
@@ -51,8 +51,8 @@ export async function loginRequest(email, password) {
         })
 }
 
-export async function signupRequest(name, email, password) {
-    return await fetch("http://localhost:8000/users/create.php", {
+export function signupRequest(name, email, password) {
+    return fetch("http://localhost:8000/users/create.php", {
         method: "post",
         mode: 'cors',
         headers: { "Content-Type": "application/json" },

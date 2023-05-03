@@ -1,5 +1,5 @@
 <script>
-    import { loginRequest, signupRequest } from "../../session.js";
+    import { loginRequest, signupRequest, loginSession } from "../../session.js";
     let hashedPassword = "";
 
     let terms = false;
@@ -26,10 +26,13 @@
 
     async function submitHandler() {
         try {
-            await signupRequest(name, email, password);
-            await loginRequest(email, password);
-            window.location.href = "/books";
-        } catch (e) {
+            await signupRequest(name, email, password)
+            let loginResponse = await loginRequest(email, password); // Successful login return user data
+            loginSession(loginResponse); // Store user data in localStorage
+            window.location.href = "/books" 
+        } 
+        
+        catch (e) {
             errorMessage = e;
         }
     }
