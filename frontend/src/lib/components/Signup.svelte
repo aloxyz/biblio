@@ -1,8 +1,5 @@
 <script>
-    import {
-        loginRequest,
-        signupRequest,
-    } from "../../session.js";
+    import { loginRequest, signupRequest } from "../../session.js";
     let hashedPassword = "";
 
     let terms = false;
@@ -11,34 +8,37 @@
     let password = "";
     let cpassword = "";
 
+    let checkMatchingPasswords;
     $: checkMatchingPasswords = password === cpassword;
 
+    let buttonDisabled;
     $: buttonDisabled = !(
         name &&
         email &&
         password &&
         cpassword &&
         checkMatchingPasswords &&
-        terms
+        terms === true
     );
 
     let errorMessage;
     $: formMessage = errorMessage;
 
     async function submitHandler() {
-        await signupRequest(name, email, password)
-        .then(loginRequest(email, password))
-        .then(window.location.href = "/books")
-        .catch(e => errorMessage = e)
+        try {
+            await signupRequest(name, email, password);
+            await loginRequest(email, password);
+            window.location.href = "/books";
+        } catch (e) {
+            errorMessage = e;
+        }
     }
-
 </script>
 
 <h1>Create an account</h1>
 {#if formMessage}
     <section>
         <mark>{formMessage}</mark>
-
     </section>
 {/if}
 <form on:submit={submitHandler}>
@@ -80,10 +80,10 @@
         placeholder="Confirm password"
     />
 
-    <button {buttonDisabled} type="submit">Sign up</button>
+    <button disabled={buttonDisabled} type="submit">Sign up</button>
     <fieldset>
         <label for="terms">
-            <input bind:value={terms} type="checkbox" id="terms" name="terms" />
+            <input bind:checked={terms} type="checkbox" id="terms" name="terms" />
             I accept terms and conditions
         </label>
     </fieldset>
