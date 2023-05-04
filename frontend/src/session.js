@@ -27,28 +27,18 @@ export function loginRequest(email, password) {
         body: JSON.stringify({ email: email, password: password }),
 
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
+    .then(res => {
+        if (res.ok) {
+            return res.json();
+        }
 
-            else if (res.status === 401 || res.status === 404 || res.status === 400) {
-                throw new Error('Invalid email or password');
-            }
-
-            // else if (res.status === 404) {
-            //     throw new Error('No user found with this email');
-            // }
-
-            // else if (res.status === 400) {
-            //     throw new Error('No email or password provided');
-            // }
-
-            else {
-                throw new Error(`Unexpected status code: ${res.status}`);
-            }
-
-        })
+        else {
+            return res.json()
+                .then(data => {
+                    if (data.message) throw new Error(data.message);
+                });
+        }
+    })
 }
 
 export function signupRequest(name, email, password) {

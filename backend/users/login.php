@@ -27,26 +27,33 @@ $db = $database->getConnection();
 $user = new User($db);
 $data = json_decode(file_get_contents("php://input"));
 
+// Check if form is filled
 if (!empty($data->email) && !empty($data->password)) {
+
+    // Initialize User object for login
     $user->email = $data->email;
     $stmt = $user->get_by_email();
 
+    // If email exists in DB
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if(password_verify($data->password, $row['password'])) {
+        // And if credentials are correct
+        if(password_verify($data->password, $row['password']) && $row['email'] === $data->email) {
             http_response_code(200);
+            
+            // Send user data to client
             echo json_encode(array(
                 "id" => "$row[id]",
                 "email" => "$row[email]",
                 "name" => "$row[name]"
             ));
         } 
-        
-        else {
-            http_response_code(401);
-            echo json_encode(array("message" => "Invalid email or password password."));
-        }
+    }
+
+    else {
+        http_response_code(401);
+        echo json_encode(array("message" => "Invalid email or password."));
     }
 } 
 
@@ -54,3 +61,4 @@ else {
     http_response_code(400);
     echo json_encode(array("message" => "Invalid request. Email and password are required."));
 }
+
