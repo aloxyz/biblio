@@ -64,21 +64,11 @@ export function signupRequest(name, email, password) {
                 return res.json();
             }
 
-            else if (res.status === 400) {
-                throw new Error('Fill in all the form fields');
-            }
-
-            else if (res.status === 409) {
-                throw new Error(`User ${email} already exists`);
-            }
-
-            else if (res.status === 500) {
-                throw new Error('Could not satisfy request, server error');
-            }
-
             else {
-                throw new Error(`Unexpected status code: ${res.status}`);
+                return res.json()
+                    .then(data => {
+                        if (data.message) throw new Error(data.message);
+                    });
             }
-
         })
 }

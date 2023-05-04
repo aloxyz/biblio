@@ -1,6 +1,5 @@
 <script>
     import { loginRequest, signupRequest, loginSession } from "../../session.js";
-    let hashedPassword = "";
 
     let terms = false;
     let name = "";
@@ -23,6 +22,7 @@
 
     let errorMessage;
     $: formMessage = errorMessage;
+
 
     async function submitHandler() {
         try {
@@ -52,6 +52,8 @@
         name="name"
         id="name"
         placeholder="Nickname"
+        minlength="3"
+        maxlength="16"
     />
 
     <input
@@ -70,7 +72,9 @@
         name="password"
         id="password"
         placeholder="Password"
-        title="Password must have a minimum of eight characters, at least one letter, one number and one special character"
+        minlength="8"
+        maxlength="24"
+        title="Password must have a minimum of eight characters, at least one letter and one number"
     />
 
     <input
@@ -92,7 +96,7 @@
     </fieldset>
 </form>
 
-<!-- pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8}$" -->
+
 
 <style>
 </style>
