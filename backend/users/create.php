@@ -26,7 +26,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 if (!empty($data->email) && !empty($data->password) && !empty($data->name)) {
     $user->email = $data->email;
-    $user->password = $data->password;
+    $user->password = password_hash($data->password, PASSWORD_DEFAULT);
     $user->name = $data->name;
 
     // Check if user email already exists

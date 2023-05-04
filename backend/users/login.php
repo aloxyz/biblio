@@ -34,25 +34,23 @@ if (!empty($data->email) && !empty($data->password)) {
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($row['password'] == $data->password) {
+        if(password_verify($data->password, $row['password'])) {
             http_response_code(200);
             echo json_encode(array(
                 "id" => "$row[id]",
                 "email" => "$row[email]",
                 "name" => "$row[name]"
             ));
+        } 
         
-        } else {
+        else {
             http_response_code(401);
-            echo json_encode(array("message" => "Invalid password."));
+            echo json_encode(array("message" => "Invalid email or password password."));
         }
-    
-    } else {
-        http_response_code(404);
-        echo json_encode(array("message" => "No user found with email $data->email."));
     }
+} 
 
-} else {
+else {
     http_response_code(400);
     echo json_encode(array("message" => "Invalid request. Email and password are required."));
 }
