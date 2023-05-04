@@ -7,14 +7,8 @@
 
     let isAdded;
 
-    function userHasBookHandler() {
-    (() => {
-        return new Promise(resolve => {
-            userHasBook(user_id, key)
-            .then(res => isAdded = res)
-            resolve();
-        })
-    })()
+    async function userHasBookHandler() {
+        isAdded = await userHasBook(user_id, key);
     }
 
     userHasBookHandler();
